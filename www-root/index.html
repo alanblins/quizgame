@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Quiz Game</title>
+        <script src="bower_components/phaser/build/phaser.min.js"></script>
+        <script src="bower_components/phaser/build/custom/phaser-arcade-physics.min.js"></script>
+        
+    </head>
+    <body>
+        <script>
+            window.onload = function() {
+            	var data;
+            	var button;
+            	var buttons = [];
+            	var texts = [];
+            	var lives = 3;
+            	var hearts = [];
+
+            	var stage = -1;
+
+            	var mario_lose_audio;
+            	var mario_haha;
+
+                var game = new Phaser.Game(800, 400, Phaser.AUTO, '', { preload: preload,create:create,update:update });
+
+				
+                function preload () {
+                	game.load.image('button', 'assets/button.png');
+                	game.load.image('heart', 'assets/heart.png');
+                	game.load.json('questions', location.origin+'/data/questions.json');
+                	game.load.audio('mario_lose', "assets/audios/sm64_mario_hurt.wav");
+                	game.load.audio('mario_haha', "assets/audios/sm64_mario_haha.wav");
+                	game.load.audio('game_over', "assets/audios/sm64_game_over.wav");
+                	game.load.audio('yippee', "assets/audios/sm64_mario_yippee.wav");
+                	
+                	
+                }
+
+
+					
+				function create () {
+					mario_lose_audio = game.add.audio('mario_lose');
+					mario_haha = game.add.audio('mario_haha');
+					game_over = game.add.audio('game_over');
+					yippee = game.add.audio('yippee');
+					
+					data = game.cache.getJSON('questions');
+					
+					renderQuestions();					
+					
+					createLives();
+					game.stage.backgroundColor = '#FFFFFF';
+					
+				}
+
+				function renderQuestions(){
+					var question = data.questions[getStage()];
+					createText(question.question,-1);
+					for(var index in question.answers){
+						var answer = question.answers[index];
+						createText(answer,index);
+						createButton(index,question.correct);
+					}
+				}
+
+				function getStage(){
+					stage++;
+					return stage;
+				}
+
+				function openWindow(button) {
+				    if(button.index == button.correct){
+				    	if(stage<data.questions.length-1){
+					    	mario_haha.play();	
+					    }else{
+					    	yippee.play();
+					    }
+
+
+				    }else{
+				    	if(lives>0){
+							loseLife();
+						}else{
+							game_over.play();
+							cleanComponents();				    
+							endGameLose();
+							return;
+						}
+
+				    	mario_lose_audio.play();
+				    }
+						
+
+					cleanComponents();
+
+					if(stage<data.questions.length-1){
+				    	renderQuestions();	
+				    }else{
+				    	endGameWin();
+				    }
+				    
+				}
+
+				function cleanComponents(){
+					for(var i in buttons){
+				    	buttons[i].destroy();
+				    }
+
+				    for(var i in texts){
+				    	texts[i].destroy();
+				    }
+				    
+				    buttons = [];
+				    texts = [];
+				}
+				
+				function loseLife(){
+					if(lives>0){
+						var heart = hearts.pop();
+						heart.destroy();
+						lives--;	
+					}else{
+						cleanComponents();				    
+						endGameWin();
+					}
+				}
+
+				function update()
+				{
+
+				}
+
+				function endGameWin(){
+					var style = { 
+						font: "20px Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: "#FFFFFF" };
+
+					var text = game.add.text(240, 115,'YOU WIN!!', style);
+				    text.anchor.set(0,0.5);
+				}
+
+				function endGameLose(){
+					var style = { 
+						font: "20px Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: "#FFFFFF" };
+						
+					var text = game.add.text(240, 115,'Game Over', style);
+				    text.anchor.set(0,0.5);
+				}
+
+				function getStyle(){
+					return { 
+						font: "14px Arial", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: "#FFFFFF" };
+
+				}
+
+				
+				function createText(text,index){
+					var style = getStyle();
+					var text = game.add.text(140, 115+index*40,text, style);
+				    text.anchor.set(0,0.5);
+				    texts.push(text);
+				}
+
+				
+
+				function createButton(index,correct){
+					
+					button = game.add.button(100, 100+index*40, 'button', openWindow, this, 2, 1, 0);
+					button.index = index;
+					button.correct = correct;
+
+					button.input.useHandCursor = true;
+					button.scale.setTo(0.25,0.25);
+					buttons.push(button);
+				}
+
+
+				
+				function createLives(){
+					for (var i = 0; i < lives; i++) {
+						var heart = game.add.sprite(760-i*20, 10, 'heart');
+						heart.scale.setTo(0.25,0.25);
+						hearts.push(heart);    
+					}
+				}
+
+            };
+        </script>
+    </body>
+</html>
