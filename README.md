@@ -9,6 +9,7 @@ Quiz Game in Phaser
 
 ### Install bower
  * npm install -g bower
+ 
 ### Install grunt
  * npm install -g grunt
  * npm install -g grunt-cli
