@@ -22,8 +22,13 @@ npm i
 cd www-root
 bower i
 cd ..
+```
+
+## Run the game
+```sh
 grunt
 ```
+
 open in your browser localhost:7000/
 
 # Change the questions
@@ -31,13 +36,36 @@ Just edit www-root/data/questions.json
 ```javascript
 	{
 		"question":"What is the chemical symbol for the element oxygen?",
-		"answers":[
+		"choices":[
 			"ox2",
 			"O",
 			"X",
 			"G"
 		],
-		"correct":1
+		"answer":1
 	},
 ```
-"correct":1 - It means the second answer "O" is the correct.
+"answer":1 - It means the second choice "O" is the correct answer.
+
+# Insert image for each question.
+* Copy the image to www-root/assets/images_questions/
+* Insert the file name into the "image" key inside of questions.json like below:
+
+```javascript
+	{
+		"question":"What is the chemical symbol for the element oxygen?",
+		"choices":[
+			"ox2",
+			"O",
+			"X",
+			"G"
+		],
+		"answer":1,
+		"image":"atlantic.png"
+	},
+```
+
+* We have to create json file to assets pack. Just run the command below:
+```sh
+grunt generate-pack-json
+```

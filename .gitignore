@@ -38,3 +38,5 @@ jspm_packages
 
 node_modules/
 www-root/bower_components/
+
+.sublime-grunt.cache

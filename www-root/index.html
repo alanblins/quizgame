@@ -14,8 +14,9 @@
             	var button;
             	var buttons = [];
             	var texts = [];
-            	var lives = 3;
+            	var lives;
             	var hearts = [];
+            	var image_question;
 
             	var stage = -1;
 
@@ -26,6 +27,7 @@
 
 				
                 function preload () {
+                	game.load.pack('images_questions', 'assets/images-pack.json', null, this);
                 	game.load.image('button', 'assets/button.png');
                 	game.load.image('heart', 'assets/heart.png');
                 	game.load.json('questions', location.origin+'/data/questions.json');
@@ -33,34 +35,32 @@
                 	game.load.audio('mario_haha', "assets/audios/sm64_mario_haha.wav");
                 	game.load.audio('game_over', "assets/audios/sm64_game_over.wav");
                 	game.load.audio('yippee', "assets/audios/sm64_mario_yippee.wav");
-                	
-                	
                 }
-
-
 					
 				function create () {
+					data = game.cache.getJSON('questions');					
+					lives = data.lives;
+
 					mario_lose_audio = game.add.audio('mario_lose');
 					mario_haha = game.add.audio('mario_haha');
 					game_over = game.add.audio('game_over');
 					yippee = game.add.audio('yippee');
-					
-					data = game.cache.getJSON('questions');
-					
+
 					renderQuestions();					
-					
 					createLives();
 					game.stage.backgroundColor = '#FFFFFF';
-					
 				}
 
 				function renderQuestions(){
-					var question = data.questions[getStage()];
+					var stage = getStage();
+					var question = data.questions[stage];
+					addImageQuestion(stage);
 					createText(question.question,-1);
-					for(var index in question.answers){
-						var answer = question.answers[index];
-						createText(answer,index);
-						createButton(index,question.correct);
+
+					for(var index in question.choices){
+						var choice = question.choices[index];
+						createText(choice,index);
+						createButton(index,question.answer);
 					}
 				}
 
@@ -69,8 +69,8 @@
 					return stage;
 				}
 
-				function openWindow(button) {
-				    if(button.index == button.correct){
+				function buttonChoiceClicked(button) {
+				    if(button.index == button.answer){
 				    	if(stage<data.questions.length-1){
 					    	mario_haha.play();	
 					    }else{
@@ -110,6 +110,7 @@
 				    for(var i in texts){
 				    	texts[i].destroy();
 				    }
+				    image_question.destroy();
 				    
 				    buttons = [];
 				    texts = [];
@@ -156,25 +157,39 @@
 				
 				function createText(text,index){
 					var style = getStyle();
-					var text = game.add.text(140, 115+index*40,text, style);
+					var text = game.add.text(140, 225+index*40,text, style);
 				    text.anchor.set(0,0.5);
 				    texts.push(text);
 				}
 
+				function addImageQuestion(index){
+					image_question = game.add.image(325, 75, 'image_question_'+index);
+					image_question.anchor.set(0.5,0.5);
+					var fixedHeight = 150;
+					if(image_question.height>fixedHeight){
+						var height = image_question.height;
+						var scale = calcScale(height,fixedHeight);
+						console.log(height);
+						image_question.scale.set(scale);
+					}
+					
+				}
+
+				function calcScale(height,fixedHeight){
+					return fixedHeight/height;
+				}
 				
 
-				function createButton(index,correct){
+				function createButton(index,answer){
 					
-					button = game.add.button(100, 100+index*40, 'button', openWindow, this, 2, 1, 0);
+					button = game.add.button(100, 210+index*40, 'button', buttonChoiceClicked, this, 2, 1, 0);
 					button.index = index;
-					button.correct = correct;
+					button.answer = answer;
 
 					button.input.useHandCursor = true;
 					button.scale.setTo(0.25,0.25);
 					buttons.push(button);
 				}
-
-
 				
 				function createLives(){
 					for (var i = 0; i < lives; i++) {
