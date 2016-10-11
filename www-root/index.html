@@ -10,26 +10,48 @@
     <body>
         <script>
             window.onload = function() {
+            	
+
+            	var default_position_x =450;
+            	var default_position_y = 300;
+            	var background_color='#FFFFFF';
+            	
             	var data;
             	var button;
+            	var buttonNext;
+            	var image_right_wrong;
+            	var text_answer_is;
+            	var text_your_answer;
+
             	var buttons = [];
+            	var buttonNexts = [];
             	var texts = [];
             	var lives;
             	var hearts = [];
             	var image_question;
-
+            	var image_answer;
+            	var category = 0;
             	var stage = -1;
+
+            	var text_answers = [];
+			  	var text_answer;
 
             	var mario_lose_audio;
             	var mario_haha;
 
-                var game = new Phaser.Game(800, 400, Phaser.AUTO, '', { preload: preload,create:create,update:update });
+            	var window_width = window.innerWidth-50;
+            	var window_height = window.innerHeight-50;
+                var game = new Phaser.Game(window_width, window_height, Phaser.AUTO, '', { preload: preload,create:create,update:update });
 
 				
                 function preload () {
                 	game.load.pack('images_questions', 'assets/images-pack.json', null, this);
                 	game.load.image('button', 'assets/button.png');
+                	game.load.image('buttonNext', 'assets/buttonNext.png');
+                	
                 	game.load.image('heart', 'assets/heart.png');
+                	game.load.image('right', 'assets/right.png');
+                	game.load.image('wrong', 'assets/wrong.png');
                 	game.load.json('questions', location.origin+'/data/questions.json');
                 	game.load.audio('mario_lose', "assets/audios/sm64_mario_hurt.wav");
                 	game.load.audio('mario_haha', "assets/audios/sm64_mario_haha.wav");
@@ -46,22 +68,79 @@
 					game_over = game.add.audio('game_over');
 					yippee = game.add.audio('yippee');
 
+					game.stage.backgroundColor = background_color;
+					intro();
+				}
+
+				function intro(){
+					var components = [];
+
+					createTextCategory('7 - 10 years old',0);
+					createTextCategory('10 - 13 years old',1);
+					createTextCategory('13 - 17 years old',2);
+
+					createTextHeaders('Welcome on board!',0);
+					createTextHeaders('Let\'s test your skills',1);
+					createTextHeaders('Choose your age!',2);
+
+					function createTextCategory(text,index){
+						var style = getStyleCategory();
+
+						var textCategory = game.add.text(100+300+index*440,default_position_y+ 250,text, style);
+						textCategory.category = index;
+					    textCategory.anchor.set(0.5,0.5);
+					    textCategory.inputEnabled = true;
+					    textCategory.events.onInputDown.add(categoryTextClicked, game);
+					    components.push(textCategory);
+					    
+					}
+
+					function categoryTextClicked(item){
+						category = item.category;
+						for(var index in components){
+							components[index].destroy();
+						}
+						startQuestions();
+					}
+
+					function createTextHeaders(text,index){
+						var style = getStyleCategory();
+						style.backgroundColor = background_color;
+						style.fill= '#000000';
+						var textComponent = game.add.text(window_width/2,200+index*100,text, style);
+						textComponent.anchor.set(0.5,0.5);
+						components.push(textComponent);
+					}
+
+					function getStyleCategory(){
+						return { 
+							font: "38pt Arial", fill: "#000000", wordWrap: false,  align: "left", backgroundColor:'#FFFFFF' };
+					}
+
+				}
+
+				
+
+				function startQuestions(){
 					renderQuestions();					
 					createLives();
-					game.stage.backgroundColor = '#FFFFFF';
 				}
 
 				function renderQuestions(){
-					var stage = getStage();
-					var question = data.questions[stage];
+					stage = getStage();
+					var question = getQuestions()[stage];
 					addImageQuestion(stage);
-					createText(question.question,-1);
+					createTextTitle(question.question,-1);
 
 					for(var index in question.choices){
 						var choice = question.choices[index];
 						createText(choice,index);
-						createButton(index,question.answer);
+						createButtonChoice(index,question.answer,question.answer_description);
 					}
+				}
+
+				function createImageAnswer(){
+					addImageAnswer(stage);
 				}
 
 				function getStage(){
@@ -70,8 +149,9 @@
 				}
 
 				function buttonChoiceClicked(button) {
+					var right = true;
 				    if(button.index == button.answer){
-				    	if(stage<data.questions.length-1){
+				    	if(stage<getQuestions().length-1){
 					    	mario_haha.play();	
 					    }else{
 					    	yippee.play();
@@ -79,6 +159,7 @@
 
 
 				    }else{
+				    	right = false;
 				    	if(lives>0){
 							loseLife();
 						}else{
@@ -91,15 +172,24 @@
 				    	mario_lose_audio.play();
 				    }
 						
-
+				    var answer_description = button.answer_description;
 					cleanComponents();
+					createImageAnswer();
+					createTextTitleAnswer('This is the answer!');
+					createTextBottomAnswer('Your answer is:')
+					createButtonNext();
+					createRightWrong(right);
 
-					if(stage<data.questions.length-1){
+				    
+				}
+
+				function buttonNextClicked(){
+					cleanAnswerComponents();
+					if(stage<getQuestions().length-1){
 				    	renderQuestions();	
 				    }else{
 				    	endGameWin();
 				    }
-				    
 				}
 
 				function cleanComponents(){
@@ -114,6 +204,24 @@
 				    
 				    buttons = [];
 				    texts = [];
+				}
+
+				function cleanAnswerComponents(){
+					for(var i in buttonNexts){
+				    	buttonNexts[i].destroy();
+				    }
+
+				    for(var i in text_answers){
+				    	text_answers[i].destroy();
+				    }
+
+				    image_answer.destroy();
+				    text_answer_is.destroy();
+				    text_your_answer.destroy();
+				    image_right_wrong.destroy();
+				    
+				    buttonNexts = [];
+				    text_answers = [];
 				}
 				
 				function loseLife(){
@@ -134,45 +242,95 @@
 
 				function endGameWin(){
 					var style = { 
-						font: "20px Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: "#FFFFFF" };
+						font: "20pt Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: background_color };
 
-					var text = game.add.text(240, 115,'YOU WIN!!', style);
-				    text.anchor.set(0,0.5);
+					var text = game.add.text(window_width/2,window_height/2,'YOU WIN!!', style);
+				    text.anchor.set(0.5,0.5);
 				}
 
 				function endGameLose(){
 					var style = { 
-						font: "20px Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: "#FFFFFF" };
-						
-					var text = game.add.text(240, 115,'Game Over', style);
+						font: "20pt Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: background_color };
+					
+					var text = game.add.text(window_width/2,window_height/2,'Game Over!!', style);
 				    text.anchor.set(0,0.5);
 				}
 
 				function getStyle(){
 					return { 
-						font: "14px Arial", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: "#FFFFFF" };
+						font: "28pt Arial", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: background_color };
 
 				}
 
 				
 				function createText(text,index){
 					var style = getStyle();
-					var text = game.add.text(140, 225+index*40,text, style);
+					var text = game.add.text(default_position_x+100,default_position_y+ 250+index*80,text, style);
 				    text.anchor.set(0,0.5);
 				    texts.push(text);
 				}
 
+				function createTextTitleAnswer(text){
+					var style = getStyle();
+					text_answer_is = game.add.text(window_width/2,30,text, style);
+				    text_answer_is.anchor.set(0.5,0.5);
+				}
+
+				function createTextBottomAnswer(text){
+					var style = getStyle();
+					text_your_answer = game.add.text(window_width/2,image_answer.height+100,text, style);
+				    text_your_answer.anchor.set(0.5,0);
+				}
+
+				
+
+				function createTextTitle(text,index){
+					var style = getStyle();
+					var text = game.add.text(window_width/2,default_position_y+ 250+index*80,text, style);
+				    text.anchor.set(0.5,0.5);
+				    texts.push(text);
+				}
+
 				function addImageQuestion(index){
-					image_question = game.add.image(325, 75, 'image_question_'+index);
+					image_question = game.add.image(window_width/2,default_position_y-50, 'image_question_'+index);
 					image_question.anchor.set(0.5,0.5);
-					var fixedHeight = 150;
+					var fixedHeight = 350;
 					if(image_question.height>fixedHeight){
 						var height = image_question.height;
 						var scale = calcScale(height,fixedHeight);
-						console.log(height);
 						image_question.scale.set(scale);
 					}
 					
+				}
+
+
+				function addImageAnswer(index){
+					image_answer = game.add.image(window_width/2,default_position_y-50, 'image_answer_'+index);
+					image_answer.anchor.set(0.5,0.5);
+					var fixedHeight = 350;
+					if(image_answer.height>fixedHeight){
+						var height = image_answer.height;
+						var scale = calcScale(height,fixedHeight);
+						image_answer.scale.set(scale);
+					}
+				}
+
+				function createTextDescription(text){					
+					var style = getStyle();
+					var text_answer = game.add.text(window_width/2,image_answer.height/2+default_position_y+50,text, style);
+				    text_answer.anchor.set(0.5,0);
+				    text_answers.push(text_answer);
+				}
+
+				function createRightWrong(right){					
+					var imageName = 'right';
+					if(!right){
+						var imageName = 'wrong';
+					}
+					image_right_wrong = game.add.image(window_width/2,image_answer.height/2+default_position_y+180, imageName);
+					image_right_wrong.anchor.set(0.5,0.5);
+				    image_right_wrong.set(0.5,0.5);
+				    
 				}
 
 				function calcScale(height,fixedHeight){
@@ -180,23 +338,43 @@
 				}
 				
 
-				function createButton(index,answer){
+				function createButtonChoice(index,answer,answer_description){
 					
-					button = game.add.button(100, 210+index*40, 'button', buttonChoiceClicked, this, 2, 1, 0);
+					button = game.add.button(default_position_x+30,default_position_y+ 220+index*80, 'button', buttonChoiceClicked, this, 2, 1, 0);
 					button.index = index;
 					button.answer = answer;
+					button.answer_description = answer_description;
 
 					button.input.useHandCursor = true;
-					button.scale.setTo(0.25,0.25);
+					button.scale.setTo(0.50,0.50);
 					buttons.push(button);
 				}
 				
+
+				function createButtonNext(index){
+					
+					buttonNext = game.add.button(window_width-100,window_height-100, 'buttonNext', buttonNextClicked, this, 2, 1, 0);
+					buttonNext.index = index;
+
+					buttonNext.input.useHandCursor = true;
+					buttonNext.scale.setTo(1.50,1.50);
+					buttonNext.anchor.set(0.5,0.5);
+					buttonNexts.push(buttonNext);
+				}
+				
+
+				
 				function createLives(){
 					for (var i = 0; i < lives; i++) {
-						var heart = game.add.sprite(760-i*20, 10, 'heart');
-						heart.scale.setTo(0.25,0.25);
+						var heart = game.add.sprite(default_position_x
++1100-i*80,default_position_y -300, 'heart');
+						heart.scale.setTo(1.25,1.25);
 						hearts.push(heart);    
 					}
+				}
+
+				function getQuestions(){
+					return data.categories[category].questions;
 				}
 
             };

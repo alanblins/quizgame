@@ -50,7 +50,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-wiredep');
   
 
-  grunt.registerTask('default', ['connect']);
+  grunt.registerTask('default', ['generate-pack-json','connect']);
 
   grunt.registerTask('generate-pack-json', 'Generate Asset Pack', function(arg1, arg2) {
       var fs = require('fs');
@@ -58,17 +58,27 @@ module.exports = function(grunt) {
 
 
       var images_questions = [];
-      for(var index in questions_json_file.questions){
+      for(var category_index in questions_json_file.categories){
+        for(var index in questions_json_file.categories[category_index].questions){
 
+          var image_name = questions_json_file.categories[category_index].questions[index].image;
 
-        var image_name = questions_json_file.questions[index].image;
+          var itemAssetJson  = {};
+          itemAssetJson.type = "image";
+          itemAssetJson.key  = "image_question_"+index;
+          itemAssetJson.url  = "assets/images_questions/"+image_name;
 
-        var itemAssetJson  = {};
-        itemAssetJson.type = "image";
-        itemAssetJson.key  = "image_question_"+index;
-        itemAssetJson.url  = "assets/images_questions/"+image_name;
+          images_questions.push(itemAssetJson);
 
-        images_questions.push(itemAssetJson);
+          var answer_image = questions_json_file.categories[category_index].questions[index].answer_image;
+
+          itemAssetJson  = {};
+          itemAssetJson.type = "image";
+          itemAssetJson.key  = "image_answer_"+index;
+          itemAssetJson.url  = "assets/images_questions/"+answer_image;
+
+          images_questions.push(itemAssetJson);
+        }
       }
 
       var jsonPack = { 

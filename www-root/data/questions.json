@@ -1,56 +1,212 @@
 {
-  "lives":4,
-  "questions":[
-	{	
-		"question":"Can you extend battery life by storing batteries at a low temperature?",
-		"choices":[
-			"True",
-			"False"
-		],
-		"answer":0,
-		"image": "batery.jpg"
-	},
-	{
-		"question":"What is the chemical symbol for the element oxygen?",
-		"choices":[
-			"ox2",
-			"O",
-			"X",
-			"G"
-		],
-		"answer":1,
-		"image": "oxygen.png"
-	},
-	{
-		"question":"How many bones do sharks have in their bodies?",
-		"choices":[
-			"0",
-			"1",
-			"2",
-			"3"
-		],
-		"answer":0,
-		"image": "shark.jpg"
-	},
-	{
-		"question":"What comes after a million, billion and trillion?",
-		"choices":[
-			"Quatrillion",
-			"Quadrillion",
-			"Fourtrillion",
-			"Fourthrillion"
-		],
-		"answer":1,
-		"image": "01.jpg"
-	},
-	{
-		"question":"2 is an integer?",
-		"choices":[
-			"True",
-			"False"
-		],
-		"answer":0,
-		"image": "negative_2.png"
-	}
+  "lives":3,
+  "categories":[
+	  {
+		  	"questions":[
+			{	
+				"question":"Can you extend battery life by storing batteries at a low temperature?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "batery.jpg",
+				"answer_image":"python_answer.jpg",
+				"answer_description":"This is the correct answer."
+			},
+			{
+				"question":"What is the chemical symbol for the element oxygen?",
+				"choices":[
+					"ox2",
+					"O",
+					"X",
+					"G"
+				],
+				"answer":1,
+				"image": "oxygen.png",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"How many bones do sharks have in their bodies?",
+				"choices":[
+					"0",
+					"1",
+					"2",
+					"3"
+				],
+				"answer":0,
+				"image": "shark.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"What comes after a million, billion and trillion?",
+				"choices":[
+					"Quatrillion",
+					"Quadrillion",
+					"Fourtrillion",
+					"Fourthrillion"
+				],
+				"answer":1,
+				"image": "01.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"2 is an integer?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "negative_2.png",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			}
+		  ]
+	  },
+	   {
+		  	"questions":[
+			{	
+				"question":"Question for different category?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "batery.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"What is the chemical symbol for the element oxygen?",
+				"choices":[
+					"ox2",
+					"O",
+					"X",
+					"G"
+				],
+				"answer":1,
+				"image": "oxygen.png",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"How many bones do sharks have in their bodies?",
+				"choices":[
+					"0",
+					"1",
+					"2",
+					"3"
+				],
+				"answer":0,
+				"image": "shark.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"What comes after a million, billion and trillion?",
+				"choices":[
+					"Quatrillion",
+					"Quadrillion",
+					"Fourtrillion",
+					"Fourthrillion"
+				],
+				"answer":1,
+				"image": "01.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"2 is an integer?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "negative_2.png",
+				"answer_image":"python_answer.jpg",
+				"answer_description":"python_answer.jpg"
+			}
+		  ]
+	  },
+	   {
+		  	"questions":[
+			{	
+				"question":"Question for different category?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "batery.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"What is the chemical symbol for the element oxygen?",
+				"choices":[
+					"ox2",
+					"O",
+					"X",
+					"G"
+				],
+				"answer":1,
+				"image": "oxygen.png",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"How many bones do sharks have in their bodies?",
+				"choices":[
+					"0",
+					"1",
+					"2",
+					"3"
+				],
+				"answer":0,
+				"image": "shark.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"What comes after a million, billion and trillion?",
+				"choices":[
+					"Quatrillion",
+					"Quadrillion",
+					"Fourtrillion",
+					"Fourthrillion"
+				],
+				"answer":1,
+				"image": "01.jpg",
+				"answer_image":"python_answer.jpg",
+
+				"answer_description":"python_answer.jpg"
+			},
+			{
+				"question":"2 is an integer?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "negative_2.png",
+				"answer_image":"python_answer.jpg",
+				"answer_description":"python_answer.jpg"
+			}
+		  ]
+	  }
   ]
 }
