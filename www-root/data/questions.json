@@ -11,8 +11,7 @@
 				],
 				"answer":0,
 				"image": "batery.jpg",
-				"answer_image":"python_answer.jpg",
-				"answer_description":"This is the correct answer."
+				"answer_image":"batery.jpg"
 			},
 			{
 				"question":"What is the chemical symbol for the element oxygen?",
@@ -24,9 +23,7 @@
 				],
 				"answer":1,
 				"image": "oxygen.png",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"answer_image":"oxygen.png"
 			},
 			{
 				"question":"How many bones do sharks have in their bodies?",
@@ -38,9 +35,7 @@
 				],
 				"answer":0,
 				"image": "shark.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"answer_image":"shark.jpg"
 			},
 			{
 				"question":"What comes after a million, billion and trillion?",
@@ -51,160 +46,510 @@
 					"Fourthrillion"
 				],
 				"answer":1,
-				"image": "01.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"image": "million.png",
+				"answer_image":"million-answer.png"
 			},
 			{
-				"question":"2 is an integer?",
+				"question":"-2 is an integer?",
 				"choices":[
 					"True",
 					"False"
 				],
 				"answer":0,
 				"image": "negative_2.png",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"answer_image":"negative_2.png"
+			},
+			{
+				"question":"5 to the power of 0 equals what?",
+				"choices":[
+					"0",
+					"1",
+					"2",
+					"3"
+				],
+				"answer":1,
+				"image": "5_power_by_0_answer.jpg",
+				"answer_image":"5_power_by_0_answer.jpg"
+			},
+			{
+				"question":"The Atlantic Ocean is the biggest ocean on Earth?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":1,
+				"image": "atlantic.png",
+				"answer_image":"pacific_answer.jpg"
+			},
+			{
+				"question":"Is Venus the closest planet to the Sun?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":1,
+				"image": "venus.jpg",
+				"answer_image":"venus_answer.jpg"
+			},
+			{
+				"question":"Do spiders have six legs?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":1,
+				"image": "spider.jpg",
+				"answer_image":"spider_answer.jpg"
+			},
+			{
+				"question":"Is iron attracted by magnets?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "magnet.jpg",
+				"answer_image":"magnet_answer.png"
+			},
+			{
+				"question":" Earth is located in which galaxy?",
+				"choices":[
+					"Peculiar Galaxy",
+					"Milk way Galaxy",
+					"Starburst Galaxy"
+				],
+				"answer":1,
+				"image": "Milky-Way-Galaxy-Desktop-Wallpaper.jpg",
+				"answer_image":"Milky-Way-Galaxy-Desktop-Wallpaper.jpg"
+			},
+			{
+				"question":" In computing, are keyboards used as input devices?",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "keyboard.jpg",
+				"answer_image":"keyboard_answer.jpg"
+			},
+			{
+				"question":"What is the Earth’s primary source of energy?",
+				"choices":[
+					"Sun",
+					"Moon",
+					"Air",
+					"Battery"
+				],
+				"answer":0,
+				"image": "earth_source_energy.jpg",
+				"answer_image":"sun_answer.jpg"
+			},
+			{
+				"question":"Gold is a good conductor of electricity.",
+				"choices":[
+					"True",
+					"False"
+				],
+				"answer":0,
+				"image": "gold.jpg",
+				"answer_image":"gold_answer.jpg"
+			},
+			{
+				"question":"What is the full name of KEMP?",
+				"choices":[
+					"KEMP Technology",
+					"KEMP Technologies",
+					"KEMP Scientology",
+					"KEMP Astrology"
+				],
+				"answer":1,
+				"image": "kemp.jpg",
+				"answer_image":"kemp_answer.jpg"
+			},
+			{
+				"question":"69 – 33=?",
+				"choices":[
+					"25",
+					"35",
+					"36",
+					"24"
+				],
+				"answer":2,
+				"image": "69-33.PNG",
+				"answer_image":"36.PNG"
+			},
+			{
+				"question":"12 * 5=?",
+				"choices":[
+					"51",
+					"50",
+					"60",
+					"62"
+				],
+				"answer":2,
+				"image": "12.PNG",
+				"answer_image":"60.JPG"
+			},
+			{
+				"question":"What is the image of?",
+				"choices":[
+					"java",
+					"scratch",
+					"python",
+					"c++"
+				],
+				"answer":1,
+				"image": "scratch.jpg",
+				"answer_image":"scratch_answer.png"
+			},
+			{
+				"question":"What is the image of?",
+				"choices":[
+					"java",
+					"scratch",
+					"python",
+					"c++"
+				],
+				"answer":2,
+				"image": "python.png",
+				"answer_image":"python_answer.jpg"
+			},
+			{
+				"question":"What is the image of?",
+				"choices":[
+					"java",
+					"scratch",
+					"python",
+					"c++"
+				],
+				"answer":0,
+				"image": "java.jpg",
+				"answer_image":"java_answer.jpg"
 			}
+
 		  ]
 	  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	   {
 		  	"questions":[
 			{	
-				"question":"Question for different category?",
+				"question":"CD–ROM is a kind of?",
 				"choices":[
-					"True",
-					"False"
-				],
-				"answer":0,
-				"image": "batery.jpg",
-				"answer_image":"python_answer.jpg",
+					"Optical disk",
+					"Magneto–Optical disk",
+					"Magnetic disk",
+					"None of these"
 
-				"answer_description":"python_answer.jpg"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"cd.png"
 			},
 			{
-				"question":"What is the chemical symbol for the element oxygen?",
+				"question":"What is the administrative section of the computer system?",
 				"choices":[
-					"ox2",
-					"O",
-					"X",
-					"G"
+					"Central Processing Unit",
+					"Control Unit",
+					"Input Unit",
+					"Memory Unit"
+				],
+				"answer":0,
+				"image": "question.jpg",
+				"answer_image":"central.png"
+			},
+			{
+				"question":"One byte is equivalent to?",
+				"choices":[
+					"4 bits",
+					"32 bits",
+					"8 bits",
+					"12 bits"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"8bits.png"
+			},
+			{
+				"question":"The computer that is not considered as a portable computer is?",
+				"choices":[
+					"Notebook computer",
+					"Laptop computer",
+					"Mini computer",
+					"None of these"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"notebook.png"
+			},
+			{
+				"question":"Web pages are written using?",
+				"choices":[
+					"URL",
+					"HTTP",
+					"HTML",
+					"FTP"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"html.png"
+			},
+			{
+				"question":"Find the odd one out?",
+				"choices":[
+					"Touch screen",
+					"Printer",
+					"Mouse",
+					"Keyboard"
 				],
 				"answer":1,
-				"image": "oxygen.png",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"image": "question.jpg",
+				"answer_image":"print.png"
 			},
 			{
-				"question":"How many bones do sharks have in their bodies?",
+				"question":"How many options does a binary choice offer?",
 				"choices":[
-					"0",
-					"1",
-					"2",
-					"3"
-				],
-				"answer":0,
-				"image": "shark.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
-			},
-			{
-				"question":"What comes after a million, billion and trillion?",
-				"choices":[
-					"Quatrillion",
-					"Quadrillion",
-					"Fourtrillion",
-					"Fourthrillion"
+					"One",
+					"Two",
+					"Three",
+					"None"
 				],
 				"answer":1,
-				"image": "01.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"image": "question.jpg",
+				"answer_image":"binary.png"
 			},
 			{
-				"question":"2 is an integer?",
+				"question":"Who is the founder of Apple Computers?",
 				"choices":[
-					"True",
-					"False"
+					"Bill Gates",
+					"Stephane Lyndse",
+					"Steve Jobs",
+					"John McCarthy"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"steve.png"
+			},
+			{
+				"question":"What is motherboard?",
+				"choices":[
+					"Keyboard otherwise known as motherboard",
+					"A circuit board which connects all the elements",
+					"It is a type of file server",
+					"Scanner and other things are part of motherboard"
 				],
 				"answer":0,
-				"image": "negative_2.png",
-				"answer_image":"python_answer.jpg",
-				"answer_description":"python_answer.jpg"
+				"image": "question.jpg",
+				"answer_image":"board.png"
+			},
+			{
+				"question":"Which is not a network topology?",
+				"choices":[
+					"Bus",
+					"Ring",
+					"Car",
+					"Scanner and other things are part of motherboard"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"network.png"
+			},
+			{
+				"question":"What is 11 + 1111?",
+				"choices":[
+					"2211",
+					"1122",
+					"1100100",
+					"12121"
+				],
+				"answer":1,
+				"image": "question.jpg",
+				"answer_image":"1122.jpg"
+			},
+			{
+				"question":"When mixed together, which two colours create brown?",
+				"choices":[
+					"Red and blue",
+					"Red and green",
+					"Black and brown",
+					"White and yellow"
+				],
+				"answer":1,
+				"image": "question.jpg",
+				"answer_image":"redandgreen.png"
+			},
+			{
+				"question":"What is the coldest temperature?",
+				"choices":[
+					"15 °C",
+					"-10 °C",
+					"-5 °C",
+					"0 °C"
+				],
+				"answer":1,
+				"image": "question.jpg",
+				"answer_image":"cold.jpg"
+			},
+			{
+				"question":"What is the missing number in this sequence: 1,4,----,64,256, 1.024",
+				"choices":[
+					"8",
+					"6",
+					"4",
+					"16"
+				],
+				"answer":3,
+				"image": "question.jpg",
+				"answer_image":"16.png"
+			},
+			{
+				"question":"How would you write 34 as a Roman numeral?",
+				"choices":[
+					"MMD",
+					"3XIV",
+					"XXXIV",
+					"IVXXX"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"xxxiv.JPG"
+			},
+			{
+				"question":"What is 4,369 rounded to the nearest thousand?",
+				"choices":[
+					"5000",
+					"4300",
+					"4000",
+					"4100"
+				],
+				"answer":2,
+				"image": "question.jpg",
+				"answer_image":"4000.JPG"
 			}
 		  ]
 	  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	   {
 		  	"questions":[
 			{	
-				"question":"Question for different category?",
+				"question":"What is the console output?",
 				"choices":[
-					"True",
-					"False"
-				],
-				"answer":0,
-				"image": "batery.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
-			},
-			{
-				"question":"What is the chemical symbol for the element oxygen?",
-				"choices":[
-					"ox2",
-					"O",
-					"X",
-					"G"
+					"Total 16 dev 9.0",
+					"Total 59 dev 9.0",
+					"Total 59 dev 9.3"
 				],
 				"answer":1,
-				"image": "oxygen.png",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"image": "question1.JPG",
+				"answer_image":"answer1.JPG"
 			},
-			{
-				"question":"How many bones do sharks have in their bodies?",
+			{	
+				"question":"What is the console output?",
 				"choices":[
-					"0",
 					"1",
-					"2",
-					"3"
+					"3",
+					"5",
+					"9"
 				],
-				"answer":0,
-				"image": "shark.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"answer":3,
+				"image": "question2.JPG",
+				"answer_image":"answer2.JPG"
 			},
-			{
-				"question":"What comes after a million, billion and trillion?",
+			{	
+				"question":"What is the console output?",
 				"choices":[
-					"Quatrillion",
-					"Quadrillion",
-					"Fourtrillion",
-					"Fourthrillion"
+					"3",
+					"2.5",
+					"2",
+					"0"
+				],
+				"answer":2,
+				"image": "question3.JPG",
+				"answer_image":"answer3.JPG"
+			},
+			{	
+				"question":"What is the console output?",
+				"choices":[
+					"3",
+					"2.5",
+					"2",
+					"0"
 				],
 				"answer":1,
-				"image": "01.jpg",
-				"answer_image":"python_answer.jpg",
-
-				"answer_description":"python_answer.jpg"
+				"image": "question4.JPG",
+				"answer_image":"answer4.JPG"
 			},
-			{
-				"question":"2 is an integer?",
+			{	
+				"question":"What is the console output?",
 				"choices":[
-					"True",
-					"False"
+					"equals",
+					"not equals",
+					"nothing from here"
 				],
 				"answer":0,
-				"image": "negative_2.png",
-				"answer_image":"python_answer.jpg",
-				"answer_description":"python_answer.jpg"
+				"image": "question5.JPG",
+				"answer_image":"answer5.JPG"
+			},
+			{	
+				"question":"What is the console output?",
+				"choices":[
+					"equals",
+					"not equals",
+					"nothing from here"
+				],
+				"answer":1,
+				"image": "question6.JPG",
+				"answer_image":"answer6.JPG"
+			},
+			{	
+				"question":"What is the console output?",
+				"choices":[
+					"1234 exception program can continue",
+					"1234 exception program crashes and can't continue",
+					"nothing from here"
+				],
+				"answer":0,
+				"image": "question7.JPG",
+				"answer_image":"answer7.JPG"
+			},
+			{	
+				"question":"What is the console output?",
+				"choices":[
+					"1234 exception program can continue",
+					"1234 exception",
+					"nothing from here"
+				],
+				"answer":1,
+				"image": "question8.JPG",
+				"answer_image":"answer8.JPG"
 			}
 		  ]
 	  }

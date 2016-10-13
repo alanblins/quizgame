@@ -176,7 +176,7 @@
 					cleanComponents();
 					createImageAnswer();
 					createTextTitleAnswer('This is the answer!');
-					createTextBottomAnswer('Your answer is:')
+					//createTextBottomAnswer('Your answer is:')
 					createButtonNext();
 					createRightWrong(right);
 
@@ -217,7 +217,6 @@
 
 				    image_answer.destroy();
 				    text_answer_is.destroy();
-				    text_your_answer.destroy();
 				    image_right_wrong.destroy();
 				    
 				    buttonNexts = [];
@@ -292,9 +291,11 @@
 				}
 
 				function addImageQuestion(index){
-					image_question = game.add.image(window_width/2,default_position_y-50, 'image_question_'+index);
+					image_question = game.add.image(window_width/2,default_position_y-50, 'image_question_'+category+'_'+index);
 					image_question.anchor.set(0.5,0.5);
-					var fixedHeight = 350;
+					var fixedHeight = 400;
+					
+						
 					if(image_question.height>fixedHeight){
 						var height = image_question.height;
 						var scale = calcScale(height,fixedHeight);
@@ -305,14 +306,14 @@
 
 
 				function addImageAnswer(index){
-					image_answer = game.add.image(window_width/2,default_position_y-50, 'image_answer_'+index);
+					image_answer = game.add.image(window_width/2,default_position_y-50, 'image_answer_'+category+'_'+index);
 					image_answer.anchor.set(0.5,0.5);
-					var fixedHeight = 350;
-					if(image_answer.height>fixedHeight){
-						var height = image_answer.height;
+					var fixedHeight = 400;
+					var height = image_answer.height;
 						var scale = calcScale(height,fixedHeight);
 						image_answer.scale.set(scale);
-					}
+
+
 				}
 
 				function createTextDescription(text){					

@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
           var itemAssetJson  = {};
           itemAssetJson.type = "image";
-          itemAssetJson.key  = "image_question_"+index;
+          itemAssetJson.key  = "image_question_"+category_index+'_'+index;
           itemAssetJson.url  = "assets/images_questions/"+image_name;
 
           images_questions.push(itemAssetJson);
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 
           itemAssetJson  = {};
           itemAssetJson.type = "image";
-          itemAssetJson.key  = "image_answer_"+index;
+          itemAssetJson.key  = "image_answer_"+category_index+'_'+index;
           itemAssetJson.url  = "assets/images_questions/"+answer_image;
 
           images_questions.push(itemAssetJson);
