@@ -109,11 +109,26 @@
 					createTextHeaders('Choose your age!',2);
 
 					function createButtonCategory(cat,index){
-						var buttoCategory1 = game.add.button(100+300+index*440,default_position_y+ 250,'buttonCategory_'+cat, categoryTextClicked, this, 2, 1, 0);
+
+						var x = window_width/2;
+						if(index==0){
+							x = x-x/2;
+						}else if(index==1){
+
+						}else if(index==2){
+							x = x+x/2;
+						}
+
+
+						var buttoCategory1 = game.add.button(index*100,default_position_y+ 250,'buttonCategory_'+cat, categoryTextClicked, this, 2, 1, 0);
 
 						buttoCategory1.category = index;
 					    buttoCategory1.anchor.set(0.5,0.5);
 					    buttoCategory1.scale.set(2.2,2.2);
+					    
+					    var space = ((window_width - (buttoCategory1.width*3))/4)/2;
+					    buttoCategory1.x = x+index*space;
+					    
 					    components.push(buttoCategory1);
 					}
 
@@ -232,10 +247,11 @@
 				function startQuestions(){
 
 					questionsGame.render()
+					createLives();
 					var total_questions = questionsGame.getQuestions().length;
 					scoreText = new ScoreText();
 					scoreText.create(questionsGame.getQuestions().length);
-					createLives();
+					
 				}
 
 				
@@ -408,11 +424,17 @@
 					return fixedHeight/height;
 				}
 				
-				
+				var heart_y = 0;
+				var heart_height = 0;
 				function createLives(){
 					for (var i = 0; i < lives; i++) {
 						var heart = game.add.sprite(default_position_x+1100-i*80,default_position_y -300, 'heart');
 						heart.scale.setTo(1.25,1.25);
+						heart.anchor.setTo(0,0);
+						heart.y = 10;
+						heart.x = window_width-((i+1)*heart.width)-10;
+						heart_y = heart.y;
+						heart_height = heart.height;
 						hearts.push(heart);    
 					}
 				}
@@ -432,9 +454,10 @@
 						var style = { 
 						font: "20pt Audiowide", fill: "#7C00F8", wordWrap: false,  align: "right", backgroundColor: background_color };
 
-						text = game.add.text(window_width-200,100,'Score ', style);
+						text = game.add.text(window_width-200,heart_height+heart_y+10,'Score ', style);
 						
 					    text.anchor.set(0,0.5);
+					    text.y=text.y+text.height;
 					    updateText(0,total);
 					}
 
