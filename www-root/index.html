@@ -11,31 +11,23 @@
         <script>
             window.onload = function() {
             	
+            	var questionsGame;
+            	var answersPage;
 
             	var default_position_x =450;
             	var default_position_y = 300;
             	var background_color='#FFFFFF';
             	
             	var data;
-            	var button;
-            	var buttonNext;
-            	var image_right_wrong;
-            	var text_answer_is;
-            	var text_your_answer;
-
-            	var buttons = [];
-            	var buttonNexts = [];
-            	var texts = [];
+            	
+            	
             	var lives;
             	var hearts = [];
-            	var image_question;
-            	var image_answer;
+            	
+            	
             	var category = 0;
             	var stage = -1;
-
-            	var text_answers = [];
-			  	var text_answer;
-
+            	
             	var mario_lose_audio;
             	var mario_haha;
 
@@ -60,6 +52,8 @@
                 }
 					
 				function create () {
+					questionsGame = new QuestionsGame();
+					answersPage = new AnswersPage();
 					data = game.cache.getJSON('questions');					
 					lives = data.lives;
 
@@ -121,27 +115,174 @@
 
 				
 
-				function startQuestions(){
-					renderQuestions();					
-					createLives();
-				}
+				function QuestionsGame(){
+					var image_question;
+					var texts = [];
+					var buttons = [];
 
-				function renderQuestions(){
-					stage = getStage();
-					var question = getQuestions()[stage];
-					addImageQuestion(stage);
-					createTextTitle(question.question,-1);
 
-					for(var index in question.choices){
-						var choice = question.choices[index];
-						createText(choice,index);
-						createButtonChoice(index,question.answer,question.answer_description);
+					return {
+						render:render,
+						getQuestions:getQuestions,
+						clear:clear,
+					};
+
+
+					function render(){
+						stage = getStage();
+						var question = getQuestions()[stage];
+						addImageQuestion(stage);
+						createTextTitle(question.question,-1);
+
+						for(var index in question.choices){
+								var choice = question.choices[index];
+								createText(choice,index);
+								createButtonChoice(index,question.answer,question.answer_description);
+						}
+					}
+
+					function getQuestions(){
+						return data.categories[category].questions;
+					}
+
+					function addImageQuestion(index){
+						image_question = game.add.image(window_width/2,default_position_y-50, 'image_question_'+category+'_'+index);
+						image_question.anchor.set(0.5,0.5);
+						var fixedHeight = 400;
+						
+							
+						if(image_question.height>fixedHeight){
+							var height = image_question.height;
+							var scale = calcScale(height,fixedHeight);
+							image_question.scale.set(scale);
+						}
+						
+					}
+
+					function createTextTitle(text,index){
+						var style = getStyle();
+						var text = game.add.text(window_width/2,default_position_y+ 250+index*80,text, style);
+					    text.anchor.set(0.5,0.5);
+					    texts.push(text);
+					}
+
+					function createText(text,index){
+						var style = getStyle();
+						var text = game.add.text(default_position_x+100,default_position_y+ 250+index*80,text, style);
+					    text.anchor.set(0,0.5);
+					    texts.push(text);
+					}
+
+					function createButtonChoice(index,answer,answer_description){
+					
+						var button = game.add.button(default_position_x+30,default_position_y+ 220+index*80, 'button', buttonChoiceClicked, this, 2, 1, 0);
+						button.index = index;
+						button.answer = answer;
+						button.answer_description = answer_description;
+
+						button.input.useHandCursor = true;
+						button.scale.setTo(0.50,0.50);
+						buttons.push(button);
+					}
+
+					function clear(){
+						image_question.destroy();
+						for(var i in texts){
+					    	texts[i].destroy();
+					    }
+					    for(var i in buttons){
+					    	buttons[i].destroy();
+					    }
+					    
+					    texts = [];
 					}
 				}
 
-				function createImageAnswer(){
-					addImageAnswer(stage);
+				function startQuestions(){
+					questionsGame.render()
+					createLives();
 				}
+
+				
+				function AnswersPage(){
+					var text_answer_is;
+					var image_answer;
+					var image_right_wrong;
+					var buttonNexts = [];
+					var text_answers = [];
+					var buttonNext;
+
+					return {
+						render:render,
+						clear:clear};
+
+					function render(right){
+						createImageAnswer();
+						createTextTitleAnswer('This is the answer!');
+						createButtonNext();
+						createRightWrong(right);
+					}
+
+
+					function createImageAnswer(){
+						addImageAnswer(stage);
+					}
+
+					function createTextTitleAnswer(text){
+						var style = getStyle();
+						text_answer_is = game.add.text(window_width/2,30,text, style);
+					    text_answer_is.anchor.set(0.5,0.5);
+					}
+					
+					function addImageAnswer(index){
+						image_answer = game.add.image(window_width/2,default_position_y-50, 'image_answer_'+category+'_'+index);
+						image_answer.anchor.set(0.5,0.5);
+						var fixedHeight = 400;
+						var height = image_answer.height;
+							var scale = calcScale(height,fixedHeight);
+							image_answer.scale.set(scale);
+					}
+
+		
+					function createRightWrong(right){					
+						var imageName = 'right';
+						if(!right){
+							var imageName = 'wrong';
+						}
+						image_right_wrong = game.add.image(window_width/2,image_answer.height/2+default_position_y+180, imageName);
+						image_right_wrong.anchor.set(0.5,0.5);
+					    //image_right_wrong.scale.set(0.5,0.5);
+					}
+
+					function clear(){
+						for(var i in buttonNexts){
+					    	buttonNexts[i].destroy();
+					    }
+
+					    for(var i in text_answers){
+					    	text_answers[i].destroy();
+					    }
+
+					    image_answer.destroy();
+					    text_answer_is.destroy();
+					    image_right_wrong.destroy();
+					    
+					    buttonNexts = [];
+					    text_answers = [];
+					}
+
+					function createButtonNext(index){
+					
+						buttonNext = game.add.button(window_width-100,window_height-100, 'buttonNext', buttonNextClicked, this, 2, 1, 0);
+						buttonNext.index = index;
+
+						buttonNext.input.useHandCursor = true;
+						buttonNext.scale.setTo(1.50,1.50);
+						buttonNext.anchor.set(0.5,0.5);
+						buttonNexts.push(buttonNext);
+					}
+				}
+
 
 				function getStage(){
 					stage++;
@@ -151,10 +292,8 @@
 				function buttonChoiceClicked(button) {
 					var right = true;
 				    if(button.index == button.answer){
-				    	if(stage<getQuestions().length-1){
+				    	if(stage<questionsGame.getQuestions().length-1){
 					    	mario_haha.play();	
-					    }else{
-					    	yippee.play();
 					    }
 
 
@@ -164,7 +303,7 @@
 							loseLife();
 						}else{
 							game_over.play();
-							cleanComponents();				    
+							questionsGame.clear();
 							endGameLose();
 							return;
 						}
@@ -173,55 +312,20 @@
 				    }
 						
 				    var answer_description = button.answer_description;
-					cleanComponents();
-					createImageAnswer();
-					createTextTitleAnswer('This is the answer!');
-					//createTextBottomAnswer('Your answer is:')
-					createButtonNext();
-					createRightWrong(right);
-
-				    
+				    questionsGame.clear();
+					answersPage.render(right);				    
 				}
 
 				function buttonNextClicked(){
-					cleanAnswerComponents();
-					if(stage<getQuestions().length-1){
-				    	renderQuestions();	
+					answersPage.clear();
+					if(stage<questionsGame.getQuestions().length-1){
+				    	questionsGame.render();	
 				    }else{
 				    	endGameWin();
+				    	yippee.play();
 				    }
 				}
 
-				function cleanComponents(){
-					for(var i in buttons){
-				    	buttons[i].destroy();
-				    }
-
-				    for(var i in texts){
-				    	texts[i].destroy();
-				    }
-				    image_question.destroy();
-				    
-				    buttons = [];
-				    texts = [];
-				}
-
-				function cleanAnswerComponents(){
-					for(var i in buttonNexts){
-				    	buttonNexts[i].destroy();
-				    }
-
-				    for(var i in text_answers){
-				    	text_answers[i].destroy();
-				    }
-
-				    image_answer.destroy();
-				    text_answer_is.destroy();
-				    image_right_wrong.destroy();
-				    
-				    buttonNexts = [];
-				    text_answers = [];
-				}
 				
 				function loseLife(){
 					if(lives>0){
@@ -229,7 +333,7 @@
 						heart.destroy();
 						lives--;	
 					}else{
-						cleanComponents();				    
+						questionsGame.clear();
 						endGameWin();
 					}
 				}
@@ -261,123 +365,19 @@
 
 				}
 
-				
-				function createText(text,index){
-					var style = getStyle();
-					var text = game.add.text(default_position_x+100,default_position_y+ 250+index*80,text, style);
-				    text.anchor.set(0,0.5);
-				    texts.push(text);
-				}
-
-				function createTextTitleAnswer(text){
-					var style = getStyle();
-					text_answer_is = game.add.text(window_width/2,30,text, style);
-				    text_answer_is.anchor.set(0.5,0.5);
-				}
-
-				function createTextBottomAnswer(text){
-					var style = getStyle();
-					text_your_answer = game.add.text(window_width/2,image_answer.height+100,text, style);
-				    text_your_answer.anchor.set(0.5,0);
-				}
-
-				
-
-				function createTextTitle(text,index){
-					var style = getStyle();
-					var text = game.add.text(window_width/2,default_position_y+ 250+index*80,text, style);
-				    text.anchor.set(0.5,0.5);
-				    texts.push(text);
-				}
-
-				function addImageQuestion(index){
-					image_question = game.add.image(window_width/2,default_position_y-50, 'image_question_'+category+'_'+index);
-					image_question.anchor.set(0.5,0.5);
-					var fixedHeight = 400;
-					
-						
-					if(image_question.height>fixedHeight){
-						var height = image_question.height;
-						var scale = calcScale(height,fixedHeight);
-						image_question.scale.set(scale);
-					}
-					
-				}
-
-
-				function addImageAnswer(index){
-					image_answer = game.add.image(window_width/2,default_position_y-50, 'image_answer_'+category+'_'+index);
-					image_answer.anchor.set(0.5,0.5);
-					var fixedHeight = 400;
-					var height = image_answer.height;
-						var scale = calcScale(height,fixedHeight);
-						image_answer.scale.set(scale);
-
-
-				}
-
-				function createTextDescription(text){					
-					var style = getStyle();
-					var text_answer = game.add.text(window_width/2,image_answer.height/2+default_position_y+50,text, style);
-				    text_answer.anchor.set(0.5,0);
-				    text_answers.push(text_answer);
-				}
-
-				function createRightWrong(right){					
-					var imageName = 'right';
-					if(!right){
-						var imageName = 'wrong';
-					}
-					image_right_wrong = game.add.image(window_width/2,image_answer.height/2+default_position_y+180, imageName);
-					image_right_wrong.anchor.set(0.5,0.5);
-				    image_right_wrong.set(0.5,0.5);
-				    
-				}
 
 				function calcScale(height,fixedHeight){
 					return fixedHeight/height;
 				}
 				
-
-				function createButtonChoice(index,answer,answer_description){
-					
-					button = game.add.button(default_position_x+30,default_position_y+ 220+index*80, 'button', buttonChoiceClicked, this, 2, 1, 0);
-					button.index = index;
-					button.answer = answer;
-					button.answer_description = answer_description;
-
-					button.input.useHandCursor = true;
-					button.scale.setTo(0.50,0.50);
-					buttons.push(button);
-				}
-				
-
-				function createButtonNext(index){
-					
-					buttonNext = game.add.button(window_width-100,window_height-100, 'buttonNext', buttonNextClicked, this, 2, 1, 0);
-					buttonNext.index = index;
-
-					buttonNext.input.useHandCursor = true;
-					buttonNext.scale.setTo(1.50,1.50);
-					buttonNext.anchor.set(0.5,0.5);
-					buttonNexts.push(buttonNext);
-				}
-				
-
 				
 				function createLives(){
 					for (var i = 0; i < lives; i++) {
-						var heart = game.add.sprite(default_position_x
-+1100-i*80,default_position_y -300, 'heart');
+						var heart = game.add.sprite(default_position_x+1100-i*80,default_position_y -300, 'heart');
 						heart.scale.setTo(1.25,1.25);
 						hearts.push(heart);    
 					}
-				}
-
-				function getQuestions(){
-					return data.categories[category].questions;
-				}
-
+				}				
             };
         </script>
     </body>
