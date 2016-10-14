@@ -5,18 +5,38 @@
         <title>Quiz Game</title>
         <script src="bower_components/phaser/build/phaser.min.js"></script>
         <script src="bower_components/phaser/build/custom/phaser-arcade-physics.min.js"></script>
-        
+         <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
     </head>
     <body>
         <script>
+        var wfconfig = {
+
+		    active: function() { 
+		    	console.log("font loaded");
+		    	
+		    },
+		    
+		    inactive: function() {
+		        console.log("fonts could not be loaded!");
+		        
+		    },
+
+		    google: {
+		      families: ['Audiowide']
+		    }
+
+		};
+
             window.onload = function() {
-            	
+            	WebFont.load(wfconfig);
             	var questionsGame;
             	var answersPage;
+            	var scoreText;
 
             	var default_position_x =450;
             	var default_position_y = 300;
-            	var background_color='#FFFFFF';
+            	var background_color='#ffffff';
             	
             	var data;
             	
@@ -37,8 +57,14 @@
 
 				
                 function preload () {
+
+                	game.load.spritesheet('buttonCategory_1', 'assets/buttonCategory_1.png', 180, 40);
+                	game.load.spritesheet('buttonCategory_2', 'assets/buttonCategory_2.png', 180, 40);
+                	game.load.spritesheet('buttonCategory_3', 'assets/buttonCategory_3.png', 180, 40);
                 	game.load.pack('images_questions', 'assets/images-pack.json', null, this);
                 	game.load.image('button', 'assets/button.png');
+                	game.load.image('win', 'assets/win.jpg');
+                	game.load.image('gameOver', 'assets/GameOver.jpg');
                 	game.load.image('buttonNext', 'assets/buttonNext.png');
                 	
                 	game.load.image('heart', 'assets/heart.png');
@@ -52,6 +78,7 @@
                 }
 					
 				function create () {
+
 					questionsGame = new QuestionsGame();
 					answersPage = new AnswersPage();
 					data = game.cache.getJSON('questions');					
@@ -66,27 +93,28 @@
 					intro();
 				}
 
+				function actionOnClick () {
+				    //background.visible =! background.visible;
+				}
+
 				function intro(){
 					var components = [];
-
-					createTextCategory('7 - 10 years old',0);
-					createTextCategory('10 - 13 years old',1);
-					createTextCategory('13 - 17 years old',2);
+					
+					createButtonCategory(1,0);
+					createButtonCategory(2,1);
+					createButtonCategory(3,2);
 
 					createTextHeaders('Welcome on board!',0);
 					createTextHeaders('Let\'s test your skills',1);
 					createTextHeaders('Choose your age!',2);
 
-					function createTextCategory(text,index){
-						var style = getStyleCategory();
+					function createButtonCategory(cat,index){
+						var buttoCategory1 = game.add.button(100+300+index*440,default_position_y+ 250,'buttonCategory_'+cat, categoryTextClicked, this, 2, 1, 0);
 
-						var textCategory = game.add.text(100+300+index*440,default_position_y+ 250,text, style);
-						textCategory.category = index;
-					    textCategory.anchor.set(0.5,0.5);
-					    textCategory.inputEnabled = true;
-					    textCategory.events.onInputDown.add(categoryTextClicked, game);
-					    components.push(textCategory);
-					    
+						buttoCategory1.category = index;
+					    buttoCategory1.anchor.set(0.5,0.5);
+					    buttoCategory1.scale.set(2.2,2.2);
+					    components.push(buttoCategory1);
 					}
 
 					function categoryTextClicked(item){
@@ -98,7 +126,10 @@
 					}
 
 					function createTextHeaders(text,index){
+
 						var style = getStyleCategory();
+						style.font = 'Audiowide';
+						style.fontSize = '38pt';
 						style.backgroundColor = background_color;
 						style.fill= '#000000';
 						var textComponent = game.add.text(window_width/2,200+index*100,text, style);
@@ -199,7 +230,11 @@
 				}
 
 				function startQuestions(){
+
 					questionsGame.render()
+					var total_questions = questionsGame.getQuestions().length;
+					scoreText = new ScoreText();
+					scoreText.create(questionsGame.getQuestions().length);
 					createLives();
 				}
 
@@ -218,7 +253,7 @@
 
 					function render(right){
 						createImageAnswer();
-						createTextTitleAnswer('This is the answer!');
+						//createTextTitleAnswer('This is the answer!');
 						createButtonNext();
 						createRightWrong(right);
 					}
@@ -251,7 +286,7 @@
 						}
 						image_right_wrong = game.add.image(window_width/2,image_answer.height/2+default_position_y+180, imageName);
 						image_right_wrong.anchor.set(0.5,0.5);
-					    //image_right_wrong.scale.set(0.5,0.5);
+					    image_right_wrong.scale.set(2.5,2.5);
 					}
 
 					function clear(){
@@ -264,7 +299,7 @@
 					    }
 
 					    image_answer.destroy();
-					    text_answer_is.destroy();
+					    //text_answer_is.destroy();
 					    image_right_wrong.destroy();
 					    
 					    buttonNexts = [];
@@ -294,6 +329,7 @@
 				    if(button.index == button.answer){
 				    	if(stage<questionsGame.getQuestions().length-1){
 					    	mario_haha.play();	
+					    	scoreText.addScore();
 					    }
 
 
@@ -345,23 +381,25 @@
 
 				function endGameWin(){
 					var style = { 
-						font: "20pt Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: background_color };
+						font: "80pt Audiowide", fill: "#7C00F8", wordWrap: false,  align: "center", backgroundColor: background_color };
 
-					var text = game.add.text(window_width/2,window_height/2,'YOU WIN!!', style);
-				    text.anchor.set(0.5,0.5);
+				    var gameWin = game.add.image(window_width/2,window_height/2, 'win');
+				    gameWin.anchor.set(0.5,0.5);
+				    scoreText.clear();
 				}
 
 				function endGameLose(){
 					var style = { 
-						font: "20pt Arial", fill: "#000000", wordWrap: false,  align: "center", backgroundColor: background_color };
+						font: "80pt Audiowide", fill: "#F8007C", wordWrap: false,  align: "center", backgroundColor: background_color };
 					
-					var text = game.add.text(window_width/2,window_height/2,'Game Over!!', style);
-				    text.anchor.set(0,0.5);
+				    var gameOver = game.add.image(window_width/2,window_height/2, 'gameOver');
+					gameOver.anchor.set(0.5,0.5);
+				    scoreText.clear();
 				}
 
 				function getStyle(){
 					return { 
-						font: "28pt Arial", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: background_color };
+						font: "28pt Audiowide", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: background_color };
 
 				}
 
@@ -377,7 +415,42 @@
 						heart.scale.setTo(1.25,1.25);
 						hearts.push(heart);    
 					}
-				}				
+				}
+
+				function ScoreText(){
+					var text;
+					var right_answers = 0;
+					var total;
+
+					return {
+						create:create,
+						addScore:addScore
+					};
+
+					function create(_total){
+						total = _total;
+						var style = { 
+						font: "20pt Audiowide", fill: "#7C00F8", wordWrap: false,  align: "right", backgroundColor: background_color };
+
+						text = game.add.text(window_width-200,100,'Score ', style);
+						
+					    text.anchor.set(0,0.5);
+					    updateText(0,total);
+					}
+
+					function addScore(){
+						right_answers++;
+						updateText(right_answers,total);
+					}
+
+					function updateText(right,total){
+						text.text = 'Score : '+right+'/'+total;
+					}
+
+					function clear(){
+						text.destroy();
+					}
+				}
             };
         </script>
     </body>
