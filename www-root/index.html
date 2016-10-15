@@ -33,11 +33,13 @@
             	var questionsGame;
             	var answersPage;
             	var scoreText;
+            	var buttonRestart;
 
             	var default_position_x =450;
             	var default_position_y = 300;
             	var background_color='#ffffff';
-            	
+            	var gameOver;
+            	var gameWin;
             	var data;
             	
             	
@@ -160,6 +162,16 @@
 				}
 
 				
+				function startQuestions(){
+					lives = data.lives;
+					questionsGame.render();
+					createLives();
+					var total_questions = questionsGame.getQuestions().length;
+					scoreText = new ScoreText();
+					scoreText.create(questionsGame.getQuestions().length);
+					
+				}
+
 
 				function QuestionsGame(){
 					var image_question;
@@ -244,16 +256,7 @@
 					}
 				}
 
-				function startQuestions(){
-
-					questionsGame.render()
-					createLives();
-					var total_questions = questionsGame.getQuestions().length;
-					scoreText = new ScoreText();
-					scoreText.create(questionsGame.getQuestions().length);
-					
-				}
-
+				
 				
 				function AnswersPage(){
 					var text_answer_is;
@@ -378,6 +381,23 @@
 				    }
 				}
 
+				function buttonRestartClicked(){
+					stage = -1;
+					if(gameOver){
+						gameOver.destroy()	
+					}
+
+					if(gameWin){
+						gameWin.destroy()	
+					}
+
+					if(buttonRestart){
+						buttonRestart.destroy();
+					}
+					
+					intro();
+				}
+
 				
 				function loseLife(){
 					if(lives>0){
@@ -399,18 +419,29 @@
 					var style = { 
 						font: "80pt Audiowide", fill: "#7C00F8", wordWrap: false,  align: "center", backgroundColor: background_color };
 
-				    var gameWin = game.add.image(window_width/2,window_height/2, 'win');
+				    gameWin = game.add.image(window_width/2,window_height/2, 'win');
 				    gameWin.anchor.set(0.5,0.5);
 				    scoreText.clear();
+				    createRestartButton();
 				}
 
 				function endGameLose(){
-					var style = { 
-						font: "80pt Audiowide", fill: "#F8007C", wordWrap: false,  align: "center", backgroundColor: background_color };
-					
-				    var gameOver = game.add.image(window_width/2,window_height/2, 'gameOver');
+				    gameOver = game.add.image(window_width/2,window_height/2, 'gameOver');
 					gameOver.anchor.set(0.5,0.5);
 				    scoreText.clear();
+				    createRestartButton();
+				}
+
+				function createRestartButton(){
+					for(var index in hearts){
+						hearts[index].destroy();
+					}
+					 buttonRestart = game.add.button(window_width/2,window_height/2+250, 'buttonNext', buttonRestartClicked, this, 2, 1, 0);
+						buttonRestart.index = index;
+
+						buttonRestart.input.useHandCursor = true;
+						buttonRestart.scale.setTo(1.50,1.50);
+						buttonRestart.anchor.set(0.5,0.5);
 				}
 
 				function getStyle(){
@@ -446,7 +477,8 @@
 
 					return {
 						create:create,
-						addScore:addScore
+						addScore:addScore,
+						clear:clear
 					};
 
 					function create(_total){

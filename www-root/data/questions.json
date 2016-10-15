@@ -258,7 +258,7 @@
 					"None of these"
 
 				],
-				"answer":2,
+				"answer":0,
 				"image": "question.jpg",
 				"answer_image":"cd.png"
 			},
@@ -354,7 +354,7 @@
 					"It is a type of file server",
 					"Scanner and other things are part of motherboard"
 				],
-				"answer":0,
+				"answer":1,
 				"image": "question.jpg",
 				"answer_image":"board.png"
 			},
