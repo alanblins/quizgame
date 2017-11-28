@@ -4,15 +4,21 @@
   "description": "",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install_game": "cd www-root && ../node_modules/bower/bin/bower install && cd ../ && node_modules/grunt-cli/bin/grunt generate-pack-json",
+    "postinstall":"npm run install_game",
+    "start":"node_modules/http-server/bin/http-server www-root -p $PORT"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bower": "^1.8.2",
     "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-wiredep": "^3.0.1"
+    "grunt-wiredep": "^3.0.1",
+    "http-server": "^0.10.0"
   }
 }
