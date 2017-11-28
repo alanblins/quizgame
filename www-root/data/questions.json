@@ -4,7 +4,7 @@
 	  {
 		  	"questions":[
 			{	
-				"question":"Can you extend battery life by storing batteries at a low temperature?",
+				"question":"You can extend battery life by storing batteries at a low temperature?",
 				"choices":[
 					"True",
 					"False"
@@ -287,7 +287,7 @@
 				"answer_image":"8bits.png"
 			},
 			{
-				"question":"The computer that is not considered as a portable computer is?",
+				"question":" Which of the following is not considered a portable computer?",
 				"choices":[
 					"Notebook computer",
 					"Laptop computer",
@@ -347,7 +347,7 @@
 				"answer_image":"steve.png"
 			},
 			{
-				"question":"What is motherboard?",
+				"question":"What is a motherboard?",
 				"choices":[
 					"Keyboard otherwise known as motherboard",
 					"A circuit board which connects all the elements",
@@ -371,7 +371,7 @@
 				"answer_image":"network.png"
 			},
 			{
-				"question":"What is 11 + 1111?",
+				"question":"Using decimal notation what is 11 + 1111?",
 				"choices":[
 					"2211",
 					"1122",
@@ -407,7 +407,7 @@
 				"answer_image":"cold.jpg"
 			},
 			{
-				"question":"What is the missing number in this sequence: 1,4,----,64,256, 1.024",
+				"question":"What is the missing number in this sequence: 1,4,...,64,256, 1.024",
 				"choices":[
 					"8",
 					"6",
