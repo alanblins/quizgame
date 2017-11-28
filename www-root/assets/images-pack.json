@@ -363,7 +363,7 @@
         {
             "type": "image",
             "key": "image_question_2_0",
-            "url": "assets/images_questions/question1.JPG"
+            "url": "assets/images_questions/question1.png"
         },
         {
             "type": "image",
@@ -373,17 +373,17 @@
         {
             "type": "image",
             "key": "image_question_2_1",
-            "url": "assets/images_questions/question2.JPG"
+            "url": "assets/images_questions/question2.png"
         },
         {
             "type": "image",
             "key": "image_answer_2_1",
-            "url": "assets/images_questions/answer2.JPG"
+            "url": "assets/images_questions/answer2.png"
         },
         {
             "type": "image",
             "key": "image_question_2_2",
-            "url": "assets/images_questions/question3.JPG"
+            "url": "assets/images_questions/question3.png"
         },
         {
             "type": "image",
@@ -393,7 +393,7 @@
         {
             "type": "image",
             "key": "image_question_2_3",
-            "url": "assets/images_questions/question4.JPG"
+            "url": "assets/images_questions/question4.png"
         },
         {
             "type": "image",
@@ -403,7 +403,7 @@
         {
             "type": "image",
             "key": "image_question_2_4",
-            "url": "assets/images_questions/question5.JPG"
+            "url": "assets/images_questions/question5.png"
         },
         {
             "type": "image",
@@ -413,7 +413,7 @@
         {
             "type": "image",
             "key": "image_question_2_5",
-            "url": "assets/images_questions/question6.JPG"
+            "url": "assets/images_questions/question6.png"
         },
         {
             "type": "image",
@@ -423,7 +423,7 @@
         {
             "type": "image",
             "key": "image_question_2_6",
-            "url": "assets/images_questions/question7.JPG"
+            "url": "assets/images_questions/question7.png"
         },
         {
             "type": "image",
@@ -433,7 +433,7 @@
         {
             "type": "image",
             "key": "image_question_2_7",
-            "url": "assets/images_questions/question8.JPG"
+            "url": "assets/images_questions/question8.png"
         },
         {
             "type": "image",
