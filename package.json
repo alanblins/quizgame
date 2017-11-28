@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install_game": "cd www-root && ../node_modules/bower/bin/bower install && cd ../ && node_modules/grunt-cli/bin/grunt generate-pack-json",
     "postinstall":"npm run install_game",
-    "start":"node_modules/http-server/bin/http-server www-root -p $PORT"
+    "start":"node_modules/http-server/bin/http-server www-root"
   },
   "author": "",
   "license": "ISC",
