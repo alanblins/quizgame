@@ -4,32 +4,23 @@ Quiz Game in Phaser
 # Installation
 ## Pre requisites
  * NodeJS (https://nodejs.org/en/download/package-manager/)
- * grunt
- * bower
-
-### Install bower
- * npm install -g bower
  
-### Install grunt
- * npm install -g grunt
- * npm install -g grunt-cli
 
 ## Install the Quiz Game
 ```sh
 git clone https://github.com/alanblins/quizgame.git
 cd quizgame
 npm i
-cd www-root
-bower i
-cd ..
 ```
 
 ## Run the game
 ```sh
-grunt
+npm start
 ```
-
-open in your browser localhost:7000/
+open in your browser 
+```
+http://localhost
+```
 
 # Change the questions
 Just edit www-root/data/questions.json
@@ -65,7 +56,7 @@ Just edit www-root/data/questions.json
 	},
 ```
 
-* We have to create json file to assets pack. Just run the command below:
+* Then install again:
 ```sh
-grunt generate-pack-json
+npm i
 ```

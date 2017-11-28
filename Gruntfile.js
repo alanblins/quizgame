@@ -9,21 +9,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
-    },
-
-    connect: {
-      server: {
-        options: {
-          port: 7000,
-          base: 'www-root',
-          keepalive:true
-        }
-      }
-    },
-
     wiredep: {
 
       task: {
@@ -44,13 +29,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-wiredep');
-  
-
-  grunt.registerTask('default', ['generate-pack-json','connect']);
 
   grunt.registerTask('generate-pack-json', 'Generate Asset Pack', function(arg1, arg2) {
       var fs = require('fs');
