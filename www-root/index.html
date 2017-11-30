@@ -55,7 +55,15 @@
 
             	var window_width = window.innerWidth-50;
             	var window_height = window.innerHeight-50;
-                var game = new Phaser.Game(window_width, window_height, Phaser.AUTO, '', { preload: preload,create:create,update:update });
+				window_width=1366;
+				window_height=768;
+                var game = new Phaser.Game(window_width, window_height, Phaser.AUTO, '', 
+				{ 
+					preload: preload,
+					create:create,
+					update:update,
+					resize:onResize
+				});
 
 				
                 function preload () {
@@ -95,6 +103,10 @@
 					intro();
 				}
 
+				function onResize(){
+					console.log('hehehhee');
+				}
+
 				function actionOnClick () {
 				    //background.visible =! background.visible;
 				}
@@ -126,7 +138,7 @@
 
 						buttoCategory1.category = index;
 					    buttoCategory1.anchor.set(0.5,0.5);
-					    buttoCategory1.scale.set(2.2,2.2);
+					    buttoCategory1.scale.set(1.9,1.9);
 					    
 					    var space = ((window_width - (buttoCategory1.width*3))/4)/2;
 					    buttoCategory1.x = x+index*space;
@@ -226,20 +238,23 @@
 
 					function createText(text,index){
 						var style = getStyle();
-						var text = game.add.text(default_position_x+100,default_position_y+ 250+index*80,text, style);
+						var x = default_position_x+100;
+						var y = default_position_y+ 250+index*60;
+						var text = game.add.text(x,y,text, style);
 					    text.anchor.set(0,0.5);
 					    texts.push(text);
 					}
 
 					function createButtonChoice(index,answer,answer_description){
-					
-						var button = game.add.button(default_position_x+30,default_position_y+ 220+index*80, 'button', buttonChoiceClicked, this, 2, 1, 0);
+						var x = default_position_x+30;
+						var y = default_position_y+ 232+index*60;
+						var button = game.add.button(x,y, 'button', buttonChoiceClicked, this, 2, 1, 0);
 						button.index = index;
 						button.answer = answer;
 						button.answer_description = answer_description;
 
 						button.input.useHandCursor = true;
-						button.scale.setTo(0.50,0.50);
+						button.scale.setTo(0.30,0.30);
 						buttons.push(button);
 					}
 
@@ -305,7 +320,7 @@
 						}
 						image_right_wrong = game.add.image(window_width/2,image_answer.height/2+default_position_y+180, imageName);
 						image_right_wrong.anchor.set(0.5,0.5);
-					    image_right_wrong.scale.set(2.5,2.5);
+					    image_right_wrong.scale.set(1.9,1.9);
 					}
 
 					function clear(){
@@ -446,7 +461,7 @@
 
 				function getStyle(){
 					return { 
-						font: "28pt Audiowide", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: background_color };
+						font: "24pt Audiowide", fill: "#000000", wordWrap: false,  align: "left", backgroundColor: background_color };
 
 				}
 
