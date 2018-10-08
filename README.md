@@ -19,7 +19,7 @@ npm start
 ```
 open in your browser 
 ```
-http://localhost
+http://localhost:8080
 ```
 
 # Change the questions
